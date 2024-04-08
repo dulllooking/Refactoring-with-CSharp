@@ -19,8 +19,9 @@ public class BaggageCalculator {
   /// <param name="carryOn">隨身行李數</param>
   /// <param name="passengers">乘客數</param>
   /// <param name="travelTime">搭乘日期</param>
+  /// <param name="isHoleday">是否為假日</param>
   /// <returns>行李費用的總價格</returns>
-  public decimal CalculatePrice(int bags, int carryOn, int passengers, DateTime travelTime) {
+  public decimal CalculatePrice(int bags, int carryOn, int passengers,DateTime travelTime, bool isHoleday) {
 
     decimal total = 0;
 
@@ -52,7 +53,7 @@ public class BaggageCalculator {
     }
 
     //假日加收費(11月~2月)
-    if (travelTime.Month >= 11 || travelTime.Month <= 2) {
+    if (isHoleday) {
       decimal holidayFee = total * HolidayFeePercent;
       Console.WriteLine("Holiday Fee: " + holidayFee);
 

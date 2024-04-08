@@ -5,17 +5,17 @@ public class BaggageCalculatorTests
     [Fact]
     public void PriceWithNoBagsIsCorrect()
     {
-        // Arrange
+        // Arrange 初始化測試所需的各種物件、數據和環境。
         BaggageCalculator calculator = new();
         int numChecked = 0;
         int numCarryOn = 0;
         int numPassengers = 1;
         DateTime travelDate = new(2023, 3, 1);
 
-        // Act
-        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate);
+        // Act 執行要測試的方法或操作。
+        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate, travelDate.Month >= 11 || travelDate.Month <= 2);
 
-        // Assert
+        // Assert 驗證執行結果是否符合預期。
         Assert.Equal(0, actualPrice);
     }
 
@@ -30,7 +30,7 @@ public class BaggageCalculatorTests
         DateTime travelDate = new(2023, 3, 1);
 
         // Act
-        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate);
+        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate, travelDate.Month >= 11 || travelDate.Month <= 2);
 
         // Assert
         Assert.Equal(190M, actualPrice);
@@ -47,7 +47,7 @@ public class BaggageCalculatorTests
         DateTime travelDate = new(2023, 3, 1);
 
         // Act
-        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate);
+        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate, travelDate.Month >= 11 || travelDate.Month <= 2);
 
         // Assert
         Assert.Equal(30M, actualPrice);
@@ -64,7 +64,7 @@ public class BaggageCalculatorTests
         DateTime travelDate = new(2023, 3, 1);
 
         // Act
-        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate);
+        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate, travelDate.Month >= 11 || travelDate.Month <= 2);
 
         // Assert
         Assert.Equal(120M, actualPrice);
@@ -81,7 +81,7 @@ public class BaggageCalculatorTests
         DateTime travelDate = new(2023, 12, 19);
 
         // Act
-        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate);
+        decimal actualPrice = calculator.CalculatePrice(numChecked, numCarryOn, numPassengers, travelDate, travelDate.Month >= 11 || travelDate.Month <= 2);
 
         // Assert
         Assert.Equal(209M, actualPrice);
