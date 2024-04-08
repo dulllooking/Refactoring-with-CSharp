@@ -1,6 +1,11 @@
 ﻿namespace Packt.CloudySkiesAir.Chapter2;
 
 public class BaggageCalculator {
+  //消除魔法數字
+  private const decimal CarryOnFee = 30M;
+  private const decimal FirstBagFee = 40M;
+  private const decimal ExtraBagFee = 50M;
+
   //使用 Auto 屬性
   public decimal HolidayFeePercent { get; set; } = 0.1M;
 
@@ -22,7 +27,7 @@ public class BaggageCalculator {
     //隨身行李費
     if (carryOn > 0) {
       //減少重複
-      decimal fee = carryOn * 30M;
+      decimal fee = carryOn * CarryOnFee;
       Console.WriteLine($"Carry-on: {fee}");
       total += fee;
     }
@@ -31,14 +36,14 @@ public class BaggageCalculator {
     if (bags > 0) {
       if (bags <= passengers) {
         //減少重複
-        decimal firstBagFee = bags * 40M;
+        decimal firstBagFee = bags * FirstBagFee;
         Console.WriteLine($"Checked: {firstBagFee}");
         total += firstBagFee;
       }
       else {
         //簡化複雜，行數變多，但可讀性提高
-        decimal firstBagFee = passengers * 40M;
-        decimal extraBagFee = (bags - passengers) * 50M;
+        decimal firstBagFee = passengers * FirstBagFee;
+        decimal extraBagFee = (bags - passengers) * ExtraBagFee;
         decimal checkedFee = firstBagFee + extraBagFee;
 
         Console.WriteLine($"Checked: {checkedFee}");
@@ -63,6 +68,6 @@ public class BaggageCalculator {
 
     return 100M;
 
-    return numBags * 50M;
+    return numBags * ExtraBagFee;
   }
 }
