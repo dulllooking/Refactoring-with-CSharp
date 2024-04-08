@@ -4,44 +4,60 @@ public class BaggageCalculator {
   //使用 Auto 屬性
   public decimal HolidayFeePercent { get; set; } = 0.1M;
 
-  private decimal holidayFeePercent = 0.1M;
-  public decimal HolidayFeePercent {
-    get { return holidayFeePercent; }
-    set { holidayFeePercent = value; }
-  }
-
-  public decimal CalculatePrice(int bags, 
-    int carryOn, int passengers, DateTime travelTime) {
+  /// <summary>
+  /// 所有隨身行李每件收費30元
+  /// 乘客第一件託運行李收費40元
+  /// 之後每一件託運行李收費50元
+  /// 若搭乘日期適逢假期或國定假日，將適用10%的額外收費
+  /// </summary>
+  /// <param name="bags">行李數</param>
+  /// <param name="carryOn">隨身行李數</param>
+  /// <param name="passengers">乘客數</param>
+  /// <param name="travelTime">搭乘日期</param>
+  /// <returns>行李費用的總價格</returns>
+  public decimal CalculatePrice(int bags, int carryOn, int passengers, DateTime travelTime) {
 
     decimal total = 0;
 
+    //隨身行李費
     if (carryOn > 0) {
-      Console.WriteLine($"Carry-on: {carryOn * 30M}");
-      total += carryOn * 30M;
+      //減少重複
+      decimal fee = carryOn * 30M;
+      Console.WriteLine($"Carry-on: {fee}");
+      total += fee;
     }
 
+    //託運行李費
     if (bags > 0) {
       if (bags <= passengers) {
-        Console.WriteLine($"Checked: {bags * 40M}");
-        total += bags * 40M;
-      } else {
-        decimal checkedFee = (passengers * 40M) + 
-          ((bags - passengers) * 50M);
+        //減少重複
+        decimal firstBagFee = bags * 40M;
+        Console.WriteLine($"Checked: {firstBagFee}");
+        total += firstBagFee;
+      }
+      else {
+        //簡化複雜，行數變多，但可讀性提高
+        decimal firstBagFee = passengers * 40M;
+        decimal extraBagFee = (bags - passengers) * 50M;
+        decimal checkedFee = firstBagFee + extraBagFee;
 
         Console.WriteLine($"Checked: {checkedFee}");
         total += checkedFee;
       }
     }
 
+    //假日加收費(11月~2月)
     if (travelTime.Month >= 11 || travelTime.Month <= 2) {
-      Console.WriteLine("Holiday Fee: " + 
-        (total * HolidayFeePercent));
+      decimal holidayFee = total * HolidayFeePercent;
+      Console.WriteLine("Holiday Fee: " + holidayFee);
 
-      total += total * HolidayFeePercent;
+      total += holidayFee;
     }
 
     return total;
   }
+
+  //棄用
   private decimal CalculatePriceFlat(int numBags) {
     decimal total = 0;
 
