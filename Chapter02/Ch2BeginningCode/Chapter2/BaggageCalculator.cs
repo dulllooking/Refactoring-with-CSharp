@@ -1,6 +1,8 @@
 ﻿namespace Packt.CloudySkiesAir.Chapter2;
 
 public class BaggageCalculator {
+  //使用 Auto 屬性
+  public decimal HolidayFeePercent { get; set; } = 0.1M;
 
   private decimal holidayFeePercent = 0.1M;
   public decimal HolidayFeePercent {
