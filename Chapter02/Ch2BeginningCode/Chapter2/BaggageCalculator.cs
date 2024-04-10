@@ -63,12 +63,12 @@ public class BaggageCalculator {
     return total;
   }
 
-  //棄用
-  private decimal CalculatePriceFlat(int numBags) {
-    decimal total = 0;
+  //未使用的成員
+  private decimal CalculatePriceFlat(int numBags) { //未使用的參數(方法簽章)
+    decimal total = 0; //未使用的變數
 
     return 100M;
 
-    return numBags * ExtraBagFee;
+    return numBags * ExtraBagFee; //執行不到的程式碼
   }
 }
