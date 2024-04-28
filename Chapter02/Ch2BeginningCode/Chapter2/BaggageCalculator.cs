@@ -35,21 +35,7 @@ public class BaggageCalculator {
 
     //託運行李費
     if (bags > 0) {
-      if (bags <= passengers) {
-        //減少重複
-        decimal firstBagFee = bags * FirstBagFee;
-        Console.WriteLine($"Checked: {firstBagFee}");
-        total += firstBagFee;
-      }
-      else {
-        //簡化複雜，行數變多，但可讀性提高
-        decimal firstBagFee = passengers * FirstBagFee;
-        decimal extraBagFee = (bags - passengers) * ExtraBagFee;
-        decimal checkedFee = firstBagFee + extraBagFee;
-
-        Console.WriteLine($"Checked: {checkedFee}");
-        total += checkedFee;
-      }
+      total = ApplyCheckedBagFee(bags, passengers, total);
     }
 
     //假日加收費(11月~2月)
@@ -58,6 +44,25 @@ public class BaggageCalculator {
       Console.WriteLine("Holiday Fee: " + holidayFee);
 
       total += holidayFee;
+    }
+
+    return total;
+  }
+
+  private static decimal ApplyCheckedBagFee(int bags, int passengers, decimal total) {
+    if (bags <= passengers) {
+      //減少重複
+      decimal firstBagFee = bags * FirstBagFee;
+      Console.WriteLine($"Checked: {firstBagFee}");
+      total += firstBagFee;
+    } else {
+      //簡化複雜，行數變多，但可讀性提高
+      decimal firstBagFee = passengers * FirstBagFee;
+      decimal extraBagFee = (bags - passengers) * ExtraBagFee;
+      decimal checkedFee = firstBagFee + extraBagFee;
+
+      Console.WriteLine($"Checked: {checkedFee}");
+      total += checkedFee;
     }
 
     return total;
